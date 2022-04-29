@@ -1,45 +1,71 @@
-// Gameboard module
-const gameBoard = () => {
-    let boardArr = [
-        {
-            "space" : 0,
-            "mark" : "empty"
-        },
-
-    ]
+// Create game board with 9 spaces
+let boardArr = [];
+const createGameBoard = () => {
+    for (let i = 1; i < 10 ; i++) {
+        boardArr.push({"space" : i, "mark" : "empty"})
+    }
+    return boardArr;
 }
 
-// Player factory
+const Player = (name, symbol) => { // Player factory
+    const getName = name;
+    const getSymbol = symbol;
+}
+
+// Create player 1
+const playerX = Player('Player 1', 'X');
+// Create player 2
+const playerO = Player('Player 2', 'O');
 
 
 
-/*
-TIC TAC TOE Logic:
-Create game board - array of 9 [0 - 8] in 3 x 3 grid
 
-Player factory
-    Name
-    Turn
-Create player 1
-Create player 2
-
-Game Flow:
-    First round
-        All nine spaces are marked as inPlay: true
-        Player 1 picks
-        Selected space is marked as inPlay: false
-    Check for winner
-    Check for tie
-    Player 1 picks
-
-
-*/
-
-const createGameBoard = () => {
-    let boardArr = [];
-    for (let i = 0; i < 9 ; i++) {
-        boardArr.push({"space" : i, "mark" : "empty"})
+const playerMove = (symbol, space) => {
+    if (boardArr[space].mark == "empty") {
+        boardArr[space].mark = symbol;
     }
 }
 
-createGameBoard();
+const playGame = () => {
+    createGameBoard();
+    let winner = 'none';
+    while (winner == 'none') {
+        // player 1 pick space
+        playerPrompt.innerText = ("Player 1 Turn (X)");
+        playerMove('X', space);
+        // check winner
+        // check tie
+        // player 2 pick space
+        layerPrompt.innerText = ("Player 2 Turn (O)");
+        playerMove('O', space);
+        //check winner
+        // check tie
+        // repeat
+    }
+}
+
+const container = document.querySelector('#container');
+const playerPrompt = document.querySelector('#playerPrompt')
+
+const createGameBoardView = () => {
+    let count = 1;
+    for (let i = 0; i < 3; i++){
+        const boardRow = document.createElement('div');
+        boardRow.classList.add('row');
+        container.appendChild(boardRow);
+        for (let j = 0; j < 3; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.setAttribute('id', count);
+            count ++;
+            cell.addEventListener('click', function () {
+                // select space
+                cell.innerText = ("X"); // test
+            });
+            boardRow.appendChild(cell);
+        };
+    };
+}
+
+createGameBoardView();
+playGame();
