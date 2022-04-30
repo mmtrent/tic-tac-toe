@@ -1,47 +1,39 @@
 // Create game board with 9 spaces
 let boardArr = [];
-const createGameBoardArr = () => {
+const createGameBoardArray = () => {
     for (let i = 1; i < 10 ; i++) {
-        boardArr.push({"space" : i, "mark" : "empty"})
+        boardArr.push({"index" : i, "symbol" : "empty"})
     }
     return boardArr;
 }
 
-const Player = (name, symbol) => { // Player factory
-    return {name, symbol};
+const playerFactory = (name, playerSymbol) => { // Player factory
+    const playerMove = () => {
+        //playerPrompt.innerText = (name + "'s Turn (" + playerSymbol + ")");
+        createBoardListeners(playerSymbol);
+    }
+    return {name, playerSymbol, playerMove};
 }
 
 // Create player 1
-const player1 = Player('Mark', 'X');
+const player1 = playerFactory('Mark', 'X');
 // Create player 2
-const player2 = Player('Jenn', 'O');
-
-const playerMove = (space, cell) => {
-    if (boardArr[space].mark == "empty") {
-        boardArr[space].mark = player1.symbol;
-        cell.innerText = (boardArr[space].mark)
-        console.log(boardArr);
-    }
-}
+const player2 = playerFactory('Jenn', 'O');
 
 const playGame = () => {
-    createGameBoardArr();
+    createGameBoardArray();
     createGameBoardView();
     let winner = 'none';
-    while (winner == 'none') {
-        // player 1 pick space
-        playerPrompt.innerText = (player1.name + "'s Turn (X)");
-        createBoardListeners();
-        playerMove();
-        // check winner
-        // check tie
-        // player 2 pick space
-        playerPrompt.innerText = (player2.name + "'s Turn (O)");
-        // playerMove('O', space);
-        //check winner
-        // check tie
-        // repeat
-    }
+    playerPrompt.innerText = ("X's Turn");
+    // player 1 pick index
+    player1.playerMove();
+    // check winner
+    // check tie
+    // player2.playerMove();
+    //check winner
+    // check tie
+    // repeat
+
 }
 
 const container = document.querySelector('#container');
@@ -59,35 +51,59 @@ const createGameBoardView = () => {
             cell.setAttribute('data-index', count);
             cell.setAttribute('id', count);
             boardRow.appendChild(cell);
-            //createBoardListener(cell);
             count ++;
         };
     };
 }
 
-//const createBoardListener = (cell) => {
-//    cell.addEventListener('click', function () {
-///        // select space
-//        playerMove(cell.dataset.index, cell);
-//    });
-//}
-
-const createBoardListeners = () => {
+const createBoardListeners = (playerSymbol) => {
     for (let i = 0; i < 9; i++) {
-        if (boardArr[i].mark == "empty") {
-            const cell = document.getElementById(i);
-            cell.addEventListener('click', function() {
-                clickFunction(cell.dataset.index, cell);
-            });
-        };
-    }
-}
+        const cell = document.getElementById(i);
+        cell.addEventListener('click', function() {
+            if (boardArr[i].symbol == "empty") {
+                boardArr[i].symbol = playerSymbol;
+                cell.innerText = (boardArr[i].symbol);
 
-const clickFunction = (index, cell) => {
-    playerMove(index, cell);
-    cell.removeEventListener('click', function() {
-        clickFunction;
-    });
+                if (boardArr[0].symbol == playerSymbol && boardArr[1].symbol == playerSymbol && boardArr[2].symbol == playerSymbol){
+                    playerPrompt.innerText = (playerSymbol + " Wins");
+                }
+                else if (boardArr[3].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[5].symbol == playerSymbol){
+                    playerPrompt.innerText = (playerSymbol + " Wins");
+                }
+                else if (boardArr[6].symbol == playerSymbol && boardArr[7].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+                    playerPrompt.innerText = (playerSymbol + " Wins");
+                }
+                else if (boardArr[0].symbol == playerSymbol && boardArr[3].symbol == playerSymbol && boardArr[6].symbol == playerSymbol){
+                    playerPrompt.innerText = (playerSymbol + " Wins");
+                }
+                else if (boardArr[1].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[7].symbol == playerSymbol){
+                    playerPrompt.innerText = (playerSymbol + " Wins");
+                }
+                else if (boardArr[2].symbol == playerSymbol && boardArr[5].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+                    playerPrompt.innerText = (playerSymbol + " Wins");
+                }
+                else if (boardArr[0].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+                    playerPrompt.innerText = (playerSymbol + " Wins");
+                }
+                else if (boardArr[2].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[6].symbol == playerSymbol){
+                    playerPrompt.innerText = (playerSymbol + " Wins");
+                }
+
+                if (playerSymbol == 'X') {
+                    playerSymbol = 'O';
+                    playerPrompt.innerText = ("O's Turn");
+
+                }
+                else if (playerSymbol == 'O') {
+                    playerSymbol = 'X';
+                    playerPrompt.innerText = ("X's Turn");
+                }
+                
+
+
+            };
+        });
+    }
 }
 
 playGame();
