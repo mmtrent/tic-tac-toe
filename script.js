@@ -63,31 +63,8 @@ const createBoardListeners = (playerSymbol) => {
             if (boardArr[i].symbol == "empty") {
                 boardArr[i].symbol = playerSymbol;
                 cell.innerText = (boardArr[i].symbol);
-
-                if (boardArr[0].symbol == playerSymbol && boardArr[1].symbol == playerSymbol && boardArr[2].symbol == playerSymbol){
-                    playerPrompt.innerText = (playerSymbol + " Wins");
-                }
-                else if (boardArr[3].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[5].symbol == playerSymbol){
-                    playerPrompt.innerText = (playerSymbol + " Wins");
-                }
-                else if (boardArr[6].symbol == playerSymbol && boardArr[7].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
-                    playerPrompt.innerText = (playerSymbol + " Wins");
-                }
-                else if (boardArr[0].symbol == playerSymbol && boardArr[3].symbol == playerSymbol && boardArr[6].symbol == playerSymbol){
-                    playerPrompt.innerText = (playerSymbol + " Wins");
-                }
-                else if (boardArr[1].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[7].symbol == playerSymbol){
-                    playerPrompt.innerText = (playerSymbol + " Wins");
-                }
-                else if (boardArr[2].symbol == playerSymbol && boardArr[5].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
-                    playerPrompt.innerText = (playerSymbol + " Wins");
-                }
-                else if (boardArr[0].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
-                    playerPrompt.innerText = (playerSymbol + " Wins");
-                }
-                else if (boardArr[2].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[6].symbol == playerSymbol){
-                    playerPrompt.innerText = (playerSymbol + " Wins");
-                }
+                checkWinner(playerSymbol);
+                
 
                 if (playerSymbol == 'X') {
                     playerSymbol = 'O';
@@ -103,6 +80,33 @@ const createBoardListeners = (playerSymbol) => {
 
             };
         });
+    }
+}
+
+const checkWinner = (playerSymbol) => {
+    if (boardArr[0].symbol == playerSymbol && boardArr[1].symbol == playerSymbol && boardArr[2].symbol == playerSymbol){
+        console.log(playerSymbol + " Wins");
+    }
+    else if (boardArr[3].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[5].symbol == playerSymbol){
+        console.log(playerSymbol + " Wins");
+    }
+    else if (boardArr[6].symbol == playerSymbol && boardArr[7].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+        console.log(playerSymbol + " Wins");
+    }
+    else if (boardArr[0].symbol == playerSymbol && boardArr[3].symbol == playerSymbol && boardArr[6].symbol == playerSymbol){
+        console.log(playerSymbol + " Wins");
+    }
+    else if (boardArr[1].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[7].symbol == playerSymbol){
+        console.log(playerSymbol + " Wins");
+    }
+    else if (boardArr[2].symbol == playerSymbol && boardArr[5].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+        console.log(playerSymbol + " Wins");
+    }
+    else if (boardArr[0].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+        console.log(playerSymbol + " Wins");
+    }
+    else if (boardArr[2].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[6].symbol == playerSymbol){
+        console.log(playerSymbol + " Wins");
     }
 }
 
