@@ -1,10 +1,110 @@
+body {
+  background-color: rgb(240, 240, 240);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  padding: 20px 0 20px 0;
+  font-size: 24pt;
+  font-weight: 700;
+  box-shadow: 0px 5px 5px 0px rgb(204, 204, 204);
+}
+
+.header img {
+  height: 40px;
+}
+
+.gamebody {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#playerPrompt {
+  padding: 30px 0 20px 0;
+  font-size: 18pt;
+  font-weight: 700;
+}
+
 .row {
-    display: grid;
-    grid-template-columns: 100px 100px 100px;
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
 
 }
 .cell {
-    border: 1px solid black;
+  font-size: 32pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  width: 100px;
+  height: 100px;
 
-    padding: 40px;
+}
+
+/* The game results form - hidden by default */
+#game-results {
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  font-size: 18pt;
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 3px solid #f1f1f1;
+  width: 360px;
+  margin-left: -180px;
+  margin-top: -240px;
+  box-shadow: 0 5px 5px 0px rgb(204, 204, 204);
+}
+
+.is-blurred {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+}
+
+  /* Set a style for the submit/login button */
+#play-again .btn {
+  font-size: 18pt;
+
+  border-radius: 8px;
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+#results-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#winner {
+  padding: 10px;
+  font-size: 22pt;
+  font-weight: 700pt;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
