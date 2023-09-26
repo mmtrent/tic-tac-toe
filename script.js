@@ -1,22 +1,25 @@
-// Create Game Board module object (IIFE)
+// Game Board module object (IIFE)
 const gameBoard = (() => {
     let boardArr = [];
-    return {boardArr};
+
+    const createGameBoardArray = () => { // Populate game board with object to store a postion index and a symbol, with a default of 'empty'
+        for (let i = 1; i < 10 ; i++) {
+            gameBoard.boardArr.push({"index" : i, "symbol" : "empty"})
+        }
+        return gameBoard.boardArr;
+    }
+    
+    return {boardArr, createGameBoardArray};
 })();
 
 const gamecontainer = document.querySelector('#gamecontainer');
 const playerPrompt = document.querySelector('#playerPrompt')
 
-const createGameBoardArray = () => { // Populate game board with object to store a postion index and a symbol, with a default of 'empty'
-    for (let i = 1; i < 10 ; i++) {
-        gameBoard.boardArr.push({"index" : i, "symbol" : "empty"})
-    }
-    return gameBoard.boardArr;
-}
-
 const playerFactory = (playerSymbol) => { // Player factory
     return {playerSymbol};
 }
+
+
 
 const playerMove = (playerSymbol) => {
     createBoardListeners(playerSymbol);
@@ -27,7 +30,7 @@ const player1 = playerFactory('X');
 const player2 = playerFactory('O');
 
 const playGame = () => {
-    createGameBoardArray();
+    gameBoard.createGameBoardArray();
     createGameBoardView();
     playerPrompt.innerText = ("X's Turn");
     playerMove(player1.playerSymbol);
