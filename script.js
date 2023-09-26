@@ -1,15 +1,39 @@
-// Game Board module object (IIFE)
+// Game Board module (IIFE)
 const gameBoard = (() => {
     let boardArr = [];
 
-    const createGameBoardArray = () => { // Populate game board with object to store a postion index and a symbol, with a default of 'empty'
+    const createGameBoardArray = () => { 
         for (let i = 1; i < 10 ; i++) {
-            gameBoard.boardArr.push({"index" : i, "symbol" : "empty"})
+            boardArr = [...boardArr,{"index" : i, "symbol" : "empty"}]
         }
-        return gameBoard.boardArr;
+        return boardArr;
     }
-    
+
     return {boardArr, createGameBoardArray};
+})();
+
+// Game flow module (IIFE)
+const gameFlow = (() => {
+    const playGame = () => {
+        gameBoard.createGameBoardArray();
+        createGameBoardView();
+        playerPrompt.innerText = ("X's Turn");
+        playerMove(player1.playerSymbol); // UI
+    }
+
+    const playerMove = (playerSymbol) => {
+        createBoardListeners(playerSymbol);
+    }
+
+
+
+    return {playGame, playerMove};
+})();
+
+// Display Controller Module
+const displayController = (() => {
+    // create gameboard view
+
 })();
 
 const gamecontainer = document.querySelector('#gamecontainer');
@@ -21,20 +45,11 @@ const playerFactory = (playerSymbol) => { // Player factory
 
 
 
-const playerMove = (playerSymbol) => {
-    createBoardListeners(playerSymbol);
-}
-
 // Create players - TODO: Make dynamic and prompt players for names
 const player1 = playerFactory('X');
 const player2 = playerFactory('O');
 
-const playGame = () => {
-    gameBoard.createGameBoardArray();
-    createGameBoardView();
-    playerPrompt.innerText = ("X's Turn");
-    playerMove(player1.playerSymbol);
-}
+
 
 
 
@@ -105,7 +120,7 @@ const newGame = () => { // Start a new game
     gamecontainer.classList.remove('is-blurred');
     playerPrompt.classList.remove('is-blurred');
     clearBoard();
-    playGame();
+    gameFlow.playGame();
 }
 
 const clearBoard = () => { // Clear the gameboard by resetting the board array and resetting the gameboard view
@@ -153,4 +168,4 @@ const checkWinner = (playerSymbol) => { // TODO: Fix doodoo logic
     }
 }
 
-playGame();
+gameFlow.playGame();
