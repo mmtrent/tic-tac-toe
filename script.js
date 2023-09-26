@@ -1,13 +1,17 @@
-let boardArr = []; // Declare array to store game board values
+// Create Game Board module object (IIFE)
+const gameBoard = (() => {
+    let boardArr = [];
+    return {boardArr};
+})();
 
 const gamecontainer = document.querySelector('#gamecontainer');
 const playerPrompt = document.querySelector('#playerPrompt')
 
 const createGameBoardArray = () => { // Populate game board with object to store a postion index and a symbol, with a default of 'empty'
     for (let i = 1; i < 10 ; i++) {
-        boardArr.push({"index" : i, "symbol" : "empty"})
+        gameBoard.boardArr.push({"index" : i, "symbol" : "empty"})
     }
-    return boardArr;
+    return gameBoard.boardArr;
 }
 
 const playerFactory = (playerSymbol) => { // Player factory
@@ -58,9 +62,9 @@ const createBoardListeners = (playerSymbol) => { // Create a click event listene
 }
 
 const playRound = (index, playerSymbol, cell) => {
-    if (boardArr[index].symbol == "empty") {
-        boardArr[index].symbol = playerSymbol;
-        cell.innerText = (boardArr[index].symbol);
+    if (gameBoard.boardArr[index].symbol == "empty") {
+        gameBoard.boardArr[index].symbol = playerSymbol;
+        cell.innerText = (gameBoard.boardArr[index].symbol);
         if (checkTie() == true) {
             gameResultsOpen('Tie!');
         }
@@ -102,15 +106,15 @@ const newGame = () => { // Start a new game
 }
 
 const clearBoard = () => { // Clear the gameboard by resetting the board array and resetting the gameboard view
-    boardArr.length = 0;
+    gameBoard.boardArr.length = 0;
     while (gamecontainer.firstChild) {
         gamecontainer.removeChild(gamecontainer.firstChild);
     }
 }
 
 const checkTie = () => { // Check for a tie by checking for any empty board spaces
-    for (let i = 0; i < boardArr.length; i++) {
-        if (boardArr[i].symbol == "empty") {
+    for (let i = 0; i < gameBoard.boardArr.length; i++) {
+        if (gameBoard.boardArr[i].symbol == "empty") {
             return false;
         }
     }
@@ -118,28 +122,28 @@ const checkTie = () => { // Check for a tie by checking for any empty board spac
 }
 
 const checkWinner = (playerSymbol) => { // TODO: Fix doodoo logic
-    if (boardArr[0].symbol == playerSymbol && boardArr[1].symbol == playerSymbol && boardArr[2].symbol == playerSymbol){
+    if (gameBoard.boardArr[0].symbol == playerSymbol && gameBoard.boardArr[1].symbol == playerSymbol && gameBoard.boardArr[2].symbol == playerSymbol){
         return true;
     }
-    else if (boardArr[3].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[5].symbol == playerSymbol){
+    else if (gameBoard.boardArr[3].symbol == playerSymbol && gameBoard.boardArr[4].symbol == playerSymbol && gameBoard.boardArr[5].symbol == playerSymbol){
         return true;
     }
-    else if (boardArr[6].symbol == playerSymbol && boardArr[7].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+    else if (gameBoard.boardArr[6].symbol == playerSymbol && gameBoard.boardArr[7].symbol == playerSymbol && gameBoard.boardArr[8].symbol == playerSymbol){
         return true;
     }
-    else if (boardArr[0].symbol == playerSymbol && boardArr[3].symbol == playerSymbol && boardArr[6].symbol == playerSymbol){
+    else if (gameBoard.boardArr[0].symbol == playerSymbol && gameBoard.boardArr[3].symbol == playerSymbol && gameBoard.boardArr[6].symbol == playerSymbol){
         return true;
     }
-    else if (boardArr[1].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[7].symbol == playerSymbol){
+    else if (gameBoard.boardArr[1].symbol == playerSymbol && gameBoard.boardArr[4].symbol == playerSymbol && gameBoard.boardArr[7].symbol == playerSymbol){
         return true;
     }
-    else if (boardArr[2].symbol == playerSymbol && boardArr[5].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+    else if (gameBoard.boardArr[2].symbol == playerSymbol && gameBoard.boardArr[5].symbol == playerSymbol && gameBoard.boardArr[8].symbol == playerSymbol){
         return true;
     }
-    else if (boardArr[0].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[8].symbol == playerSymbol){
+    else if (gameBoard.boardArr[0].symbol == playerSymbol && gameBoard.boardArr[4].symbol == playerSymbol && gameBoard.boardArr[8].symbol == playerSymbol){
         return true;
     }
-    else if (boardArr[2].symbol == playerSymbol && boardArr[4].symbol == playerSymbol && boardArr[6].symbol == playerSymbol){
+    else if (gameBoard.boardArr[2].symbol == playerSymbol && gameBoard.boardArr[4].symbol == playerSymbol && gameBoard.boardArr[6].symbol == playerSymbol){
         return true;
     } else {
         return false;
